@@ -42,11 +42,6 @@
                 @yield('content')
             </div>
 
-            <!-- Footer -->
-            @include('components.footer')
-
-            @include('dashboard')
-        </div>
     </div>
 
     <!-- jQuery and Popper.js (required for Bootstrap 4) -->

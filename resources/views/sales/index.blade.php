@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\DB;
                                 <td>{{ DB::table('users')->where('id', $item->user_id)->value('name') }}</td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-primary detail-transaction-btn" data-toggle="modal" data-target="#transactionDetailModal" data-transaction='{{ json_encode($item) }}'>Lihat</button>
-                                    <a href="{{ route('sales.invoice', $item->id) }}" class="btn btn-primary">Unduh Bukti</a>
+                                    <a href="{{ route('sales.invoice', $item->id) }}" class="btn btn-success">Unduh Bukti</a>
                                 </td>                        
                             </tr>
                             @endforeach

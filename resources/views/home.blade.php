@@ -3,57 +3,97 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
-
 <div class="main-content-table">
-    <div class="section">
+    <section class="section">
         <div class="margin-content">
             <div class="container-sm">
-                <div class="section-header text-center">
-                    <h1>Dashboard Kasir</h1>
+                <div class="section-header">
+                    <h1>Selamat Datang, {{ substr(auth()->user()->name, 0, 15) }}!</h1>
                 </div>
+
+                <div class="row mt-4">
+                    <!-- Produk -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-success text-white">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Produk</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $productCount }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Penjualan -->
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-warning text-white">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Penjualan</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col-6 border-right">
+                                            <div><strong>Member</strong></div>
+                                            <div>{{ $salesMemberCount }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div><strong>Non-Member</strong></div>
+                                            <div>{{ $salesNonMemberCount }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User (Hanya untuk Superadmin) -->
+                    @if (auth()->user()->role == 'superadmin')
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-primary text-white">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>User</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $userCount }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    <!-- Member -->
+                    {{-- <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-danger text-white">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Member</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $memberCount }}
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+                </div>
+
             </div>
         </div>
-    </div>
+    </section>
 </div>
-
-<div class="container d-flex justify-content-center align-items-center padding-0" style="height: 100 weight: 100;">
-    <div>
-        <h1 class="text-center">Dashboard Kasir</h1>
-        <canvas id="myChart" width="600" height="400" class="padding-0"></canvas>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei'],
-            datasets: [{
-                label: 'Penjualan',
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
-
 @endsection

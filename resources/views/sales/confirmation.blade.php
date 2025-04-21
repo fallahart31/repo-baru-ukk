@@ -37,7 +37,7 @@
                                         <h5>Produk yang Dibeli</h5>
                                         <ul class="list-group">
                                             @foreach ($products as $key => $product)
-                                            dd)
+                                            {{-- dd) --}}
                                                 <li class="list-group-item">
                                                     <strong>{{ $key + 1 . '. ' . $product->name}}</strong>
                                                     <br>Harga: Rp {{ number_format($product->price, 0, ',', '.') }}
@@ -131,8 +131,16 @@
             }
         });
 
-        $('form').on('submit', function() {
+        $('form').on('submit', function(e) {
             let totalPay = $('#total_pay').val().replace(/\D/g, '');
+            let totalAmount = $('input[name="total_amount"]').val();
+
+            if (parseInt(totalPay) < parseInt(totalAmount)) {
+                alert('Jumlah bayar tidak boleh kurang dari total pembayaran!');
+                e.preventDefault();
+                return false;
+            }
+
             $('#total_pay_numeric').val(totalPay);
         });
 
@@ -141,5 +149,6 @@
         }
     });
 </script>
+
 @endpush
 @endsection

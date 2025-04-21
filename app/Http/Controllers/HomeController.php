@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sale;
+use App\Models\Product;
+use App\Models\Member;
+use App\Models\User;
+
 class HomeController extends Controller
 {
     /**
@@ -21,11 +26,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $userCount = null;
+
+        if (auth()->user()->role == 'superadmin') {
+            $userCount = User::count();
+        }
+
+        $productCount = Product::count();
+        $salesCount = Sale::count();
+        $memberCount = Member::count();
+
+        $salesMemberCount = Sale::whereNotNull('member_id')->count();
+
+        $salesNonMemberCount = Sale::whereNull('member_id')->count();
+
+        return view('home', compact('userCount', 'productCount', 'salesCount', 'memberCount', 'salesMemberCount', 'salesNonMemberCount'));
     }
 
     public function blank()
     {
         return view('layouts.blank-page');
     }
-}
+} 
